@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name = "viewport" content = "width=device-width, initial-scale=1.0">
+        <title>Raymond Jiang - Portfolio</title>
+        <style>
+            body {
+                background-color: #f0f2f5;
+                font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+                margin: 0;
+                padding: 40px 20px;
+            }
+            .profile-card {
+                max-width: 600px;
+                margin: 0 auto;
+                background: white;
+                padding: 30px;
+                border-radius: 12px;
+                box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+                text-align: center;
+            }
+            img {
+                max-width: 150px;
+                height: auto;
+                margin: 15px 0;
+            }
+            ul {
+                text-align: left;
+                display: inline-block;
+                background-color: #f8f9fa;
+                padding: 15px 30px;
+                border-radius: 6px;
+                border-left: 4px solid #bb0000;
+            }
+            a {
+                display: inline-block;
+                margin: 10px;
+                padding: 10px 20px;
+                background-color: #bb0000;
+                color: white;
+                text-decoration: none;
+                border-radius: 6px;
+                font-weight: bold;
+                transition: background 0.2s;
+            }
+            a:hover {
+                background-color: #666666;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="profile-card">
+            <h1>Raymond Jiang</h1>
+            <img src="data:image/png;base64,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" alt="Ohio State University Campus">
+            <p>Electrical Engineering is very mathematics heavy.</p>
+
+            <h2>My Programming goals</h2>
+            <ul>
+                <li>"Acquire new skills"</li>
+                <li>"Learn Programming Fundamentals"</li>
+                <li>"Being able to build my first successful program"</li>
+            </ul>
+            <h2>Connect with me</h2>
+            <a href="../Project2/index.html">View My Ohm's Law Calculator</a><br>
+            <a href="https://github.com">My Github</a>
+            <br><a href="https://www.google.com" target="_blank">Visit Google in a New Tab</a> -->
+        </div>
+    </body>
+</html>
