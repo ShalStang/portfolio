@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ECE Calculator</title>
+    <title>Ohm's Law Calculator</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -20,6 +20,16 @@
             text-align: center;
             font-size: 24px;
         }
+        label { font-weight: bold; color: #333; font-size: 14px; }
+        select, input[type="number"] {
+            width: 100%;
+            padding: 10px;
+            margin: 8px 0 15px 0;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+            font-size: 16px;
+        }
         button {
             width: 100%;
             padding: 10px;
@@ -30,64 +40,93 @@
             font-size: 16px;
             cursor: pointer;
         }
-        input[type="number"] {
-        width: 100%;
-        padding: 10px;
-        margin-top: 5px;
-        border: 1px solid #ccc;
-        border-radius: 4px;
-        box-sizing: border-box;
-        font-size: 16px;
-    }
-    label {
-        font-weight: bold;
-        color: #333;
-        font-size: 14px;
-    }
+        #result {
+            margin-top: 15px;
+            font-weight: bold;
+            font-size: 18px;
+            text-align: center;
+        }
     </style>
 </head>
 <body>
-    <h1>Ohm's Law Calculator</h1>
-    <label for="voltage">Voltage (V):</label>
-    <input type="number" id="voltage" placeholder="e.g., 12">
-    <br><br>
+    <h1>Ohm's Law Toolkit</h1>
+    <label for="calculationType">What do you want to calculate?</label>
+    <select id="calculationType">
+        <option value="I">Current (I = V / R)</option>
+        <option value="V">Voltage (V = I * R)</option>
+        <option value="R">Resistance (R = V / I)</option>
+    </select>
 
-    <label for="resistance">Resistance (Ω):</label>
-    <input type="number" id="resistance" placeholder="e.g., 220">
-    <br><br>
+    <label id="label1" for="input1">Voltage (V):</label>
+    <input type="number" id="input1" placeholder="Enter voltage">
 
-    <button id="button">Calculate Current</button>
-    <h3 id="result">Current (I): -- A</h3>
+    <label for="label2" form="input2">Resistance (R):</label>
+    <input type="number" id="input2" placeholder="Enter resistance">
+
+    <button id="calculateBtn">Calculate</button>
+    <div id="result"></div>
+
     <script>
-        const voltageInput = document.getElementById('voltage');
-        const resistanceInput = document.getElementById('resistance');
+        const calcType = document.getElementById('calculationType');
+        const label1 = document.getElementById('label1');
+        const label2 = document.getElementById('label2');
+        const input1 = document.getElementById('input1');
+        const input2 = document.getElementById('input2');
+        const calculateButton = document.getElementById('calculateBtn');
         const resultDisplay = document.getElementById('result');
-        const calculateButton = document.getElementById('button');
 
-        calculateButton.addEventListener('click', function() {
-            const V = Number(voltageInput.value);
-            const R = Number(resistanceInput.value);
+        calcType.addEventListener('change', function() {
+            if (calcType.value === "I") {
+                label1.textContent = "Voltage (V):";
+                input1.placeholder = "Enter voltage";
+                label2.textContent = "Resistance (R):";
+                input2.placeholder = "Enter resistance";
+            } else if (calcType.value === "V") {
+                label1.textContent = "Current (I):";
+                input1.placeholder = "Enter current";
+                label2.textContent = "Resistance (R):";
+                input2.placeholder = "Enter resistance";
+            } else if (calcType.value === "R") {
+                label1.textContent = "Voltage (V):";
+                input1.placeholder = "Enter voltage";
+                label2.textContent = "Current (I):";
+                input2.placeholder = "Enter current";
+            }
+            resultDisplay.textContent = "";
+        });
+        calculateBtn.addEventListener('click', function() {
+            const val1 = Number(input1.value);
+            const val2 = Number(input2.value);
 
-            if (voltageInput.value === "" || resistanceInput.value === "") {
-                resultDisplay.textContent = "Error: Please enter both values.";
+            if (input1.value === "" || input2.value === "") {
+                resultDisplay.textContent = "❌ Error: Please fill in both fields.";
                 resultDisplay.style.color = "red";
+                return;
             }
 
-            else if (R === 0) {
-                resultDisplay.textContent = "Error: Resistance cannot be zero.";
-                resultDisplay.style.color = "red";
+            let resultText = "";
+            resultDisplay.style.color = "#333";
+
+            if (calcType.value === "I") {
+                if (val2 === 0) {
+                    resultDisplay.textContent = "❌ Error: Short circuit (R = 0 Ω)!";
+                    resultDisplay.style.color = "red";
+                    return;
+                }
+                resultText = "Current (I): " + (val1 / val2).toFixed(3) + " A";
+            } else if (calcType.value === "V") {
+                resultText = "Voltage (V): " + (val1 * val2).toFixed(3) + " V";
+            } else if (calcType.value === "R") {
+                if (val2 === 0) {
+                    resultDisplay.textContent = "❌ Error: Cannot divide by 0 A current!";
+                    resultDisplay.style.color = "red";
+                    return;
+                }
+                resultText = "Resistance (R): " + (val1 / val2).toFixed(3) + " Ω";
             }
 
-            else {
-                const I = V / R;
-                resultDisplay.textContent = "Current (I): " + I.toFixed(3) + " A";
-                resultDisplay.style.color = "#333";
-            }
-
-            const I = V / R;
-            resultDisplay.textContent = "Current (I): " + I + " A";
-        })
-        console.log("Fireware initialized successfully!"); 
+            resultDisplay.textContent = resultText;
+        });
     </script>
 </body>
 </html>
