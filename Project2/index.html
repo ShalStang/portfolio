@@ -74,6 +74,9 @@
         const input2 = document.getElementById('input2');
         const calculateBtn = document.getElementById('calculateBtn');
         const resultDisplay = document.getElementById('result');
+        const historyList = document.getElementById('historyList');
+        const clearHistoryBtn = document.getElementById('clearHistoryBtn');
+        let historyArray = [];
 
         calcType.addEventListener('change', function() {
             if (calcType.value === "I") {
@@ -128,6 +131,20 @@
             }
 
             resultDisplay.textContent = resultText;
+
+            historyArray.push(resultText);
+
+            historyList.innerHTML = "";
+
+            history.Array.forEach(function(item) {
+                const li = document.createElement("li");
+                li.textContent = item;
+                historyList.appendChild(li);    
+            });
+        });
+        clearHistoryBtn.addEventListener('click', function() {
+            historyArray = [];
+            historyList.innerHTML = "";
         });
     </script>
 </body>
