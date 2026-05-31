@@ -123,7 +123,9 @@
                     return;
                 }
                 resultText = "Resistance (R): " + (val1 / val2).toFixed(3) + " Ω";
-            }
+            } else if (calcType.value === "P") {
+                resultText = "Power (P): " + (val1 * val2).toFixed(3) + " W";
+            }s
 
             resultDisplay.textContent = resultText;
         });
