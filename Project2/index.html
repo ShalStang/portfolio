@@ -81,7 +81,18 @@
         const resultDisplay = document.getElementById('result');
         const historyList = document.getElementById('historyList');
         const clearHistoryBtn = document.getElementById('clearHistoryBtn');
-        let historyArray = [];
+        let historyArray;
+        const loadedData= localStorage.getItem("savedLog");
+        if (loadedData !== null) {
+            historyArray = JSON.parse(loadedData);
+            historyArray.forEach(function(item) {
+                const li = document.createElement('li');
+                li.textContent = item;
+                historyList.appendChild(li);
+            });
+        } else {
+            historyArray = [];
+        }
 
         calcType.addEventListener('change', function() {
             if (calcType.value === "I") {
@@ -140,6 +151,7 @@
             historyArray.push(resultText);
 
             historyList.innerHTML = "";
+            localStorage.setItem("savedLog", JSON.stringify(historyArray));
 
             historyArray.forEach(function(item) {
                 const li = document.createElement('li');
@@ -148,8 +160,11 @@
             });
         });
         clearHistoryBtn.addEventListener('click', function() {
+            localStorage.removeItem("savedLog");
             historyArray = [];
             historyList.innerHTML = "";
+            resultDisplay.textContent = "Your history is clean!";
+            resultDisplay.style.color = "green";
         });
     </script>
 </body>
