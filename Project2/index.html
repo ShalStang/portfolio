@@ -60,11 +60,16 @@
     <label id="label1" for="input1">Voltage (V):</label>
     <input type="number" id="input1" placeholder="Enter voltage">
 
-    <label for="label2" for="input2">Resistance (R):</label>
+    <label id="label2" for="input2">Resistance (R):</label>
     <input type="number" id="input2" placeholder="Enter resistance">
 
     <button id="calculateBtn">Calculate</button>
     <div id="result"></div>
+
+    <hr style="margin-top: 30px; border: 0; border-top: 1px solid #ccc;">
+    <h3 style="text-align: center; color: #666;">Calculation History</h3>
+    <ul id="historyList" style="text-align: left; padding-left: 20px; color: #555;"></ul>
+    <button id="clearHistoryBtn" style="background-color: #bb0000; margin-top: 10px;">Clear History</button>
 
     <script>
         const calcType = document.getElementById('calculationType');
@@ -136,8 +141,8 @@
 
             historyList.innerHTML = "";
 
-            history.Array.forEach(function(item) {
-                const li = document.createElement("li");
+            historyArray.forEach(function(item) {
+                const li = document.createElement('li');
                 li.textContent = item;
                 historyList.appendChild(li);    
             });
